@@ -129,6 +129,9 @@ USTRUCT(BlueprintType)
 struct FWeaponData : public FTableRowBase
 {
     GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    uint8 ID = 0;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FName WeaponName = "Axe";
@@ -184,12 +187,15 @@ struct FArmorData : public FTableRowBase
 
 // 3. Промежуточная структура для передачи данных
 USTRUCT(BlueprintType)
-struct FCharacterBuildData : public FTableRowBase
+struct FCharacterData : public FTableRowBase
 {
     GENERATED_BODY()
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    FString CharacterName;
+    FName CharacterId = "Warrior_Male_0";
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    FString CharacterName = "Warrior";
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TSoftObjectPtr<USkeletalMesh> CharacterBody;
@@ -202,8 +208,7 @@ struct FCharacterBuildData : public FTableRowBase
     int32 TeamIndex = 0;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    FString OwnerPlayerId;
-
+    FString OwnerPlayerUniqueId = "NONE";
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FCharacterAttributes Attributes;
@@ -212,16 +217,20 @@ struct FCharacterBuildData : public FTableRowBase
     TArray<FCharacterSkill> Skills;
 
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    FWeaponData MainWeapon;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite,
+        meta = (RowType = "/Script/TacticaMortis.WeaponData"))
+    FDataTableRowHandle   MainWeapon;
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    FWeaponData NonMainWeapon;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite,
+        meta = (RowType = "/Script/TacticaMortis.WeaponData"))
+    FDataTableRowHandle   NonMainWeapon;
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    TArray<FWeaponData> OtherWeapon;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite,
+        meta = (RowType = "/Script/TacticaMortis.WeaponData"))
+    TArray<FDataTableRowHandle> OtherWeapon;
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    TArray<FArmorData> Armors;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite,
+        meta = (RowType = "/Script/TacticaMortis.ArmorData"))
+    TArray<FDataTableRowHandle> Armors;
 
 };

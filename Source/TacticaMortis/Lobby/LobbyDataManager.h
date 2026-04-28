@@ -13,5 +13,9 @@ UCLASS()
 class TACTICAMORTIS_API ULobbyDataManager : public UObject
 {
 	GENERATED_BODY()
+
+public:
+
+	
 	
 };

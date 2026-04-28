@@ -23,4 +23,8 @@ public:
 
 	UPROPERTY(Blueprintable, EditAnywhere)
 	TSubclassOf<ALobbyHUD> ClientBaseHUD;
+
+public:
+
+	virtual void PostLogin(APlayerController* NewPlayer) override;
 };

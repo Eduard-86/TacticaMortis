@@ -20,8 +20,11 @@ public class TacticaMortis : ModuleRules
 			"GameplayStateTreeModule",
 			"Niagara",
 			"UMG",
-			"Slate"
-		});
+			"Slate",
+			"NetCore",
+			"OnlineSubsystem",
+			"CoreOnline",
+        });
 
 		PrivateDependencyModuleNames.AddRange(new string[] { });
 
