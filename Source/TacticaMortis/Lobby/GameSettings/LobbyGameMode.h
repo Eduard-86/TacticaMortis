@@ -9,7 +9,9 @@
 /**
  * 
  */
-class ALobbyHUD;
+class AClientLobbyHUD;
+class AHostLobbyHUD;
+;
 
 UCLASS()
 class TACTICAMORTIS_API ALobbyGameMode : public AGameMode
@@ -19,12 +21,14 @@ class TACTICAMORTIS_API ALobbyGameMode : public AGameMode
 public: 
 
 	UPROPERTY(Blueprintable, EditAnywhere)
-	TSubclassOf<ALobbyHUD> HostBaseHUD;
+	TSubclassOf<AHostLobbyHUD> HostBaseHUD;
 
 	UPROPERTY(Blueprintable, EditAnywhere)
-	TSubclassOf<ALobbyHUD> ClientBaseHUD;
+	TSubclassOf<AClientLobbyHUD> ClientBaseHUD;
 
 public:
 
 	virtual void PostLogin(APlayerController* NewPlayer) override;
+
+	virtual void HandleStartingNewPlayer_Implementation(APlayerController* NewPlayer) override;
 };

@@ -66,7 +66,7 @@ public:
 
 public:
 
-    FOnPlayerListChanged OnPlayerListChanged;
+    FOnPlayerListChanged OnPlayerInfoChanged;
 
 protected:
 

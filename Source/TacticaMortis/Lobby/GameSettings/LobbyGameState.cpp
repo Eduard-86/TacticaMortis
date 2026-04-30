@@ -14,7 +14,6 @@ ALobbyGameState::ALobbyGameState()
 
 void ALobbyGameState::AddNewPlayer(const APlayerController* PlayerController)
 {
-
 	if (!HasAuthority()) return;
 	if (!PlayerController || !PlayerController->PlayerState) return;
 
@@ -79,7 +78,9 @@ void ALobbyGameState::UpdateHostRemoveCharacterFromPlayer(const APlayerControlle
 
 void ALobbyGameState::OnRep_PlayerLobbyInfos()
 {
-	OnPlayerListChanged.Broadcast();
+	UE_LOG(LogTemp, Warning, TEXT("OnRep triggered! Count: %d"), PlayerLobbyInfos.Num());
+
+	OnPlayerInfoChanged.Broadcast();
 }
 
 void ALobbyGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
