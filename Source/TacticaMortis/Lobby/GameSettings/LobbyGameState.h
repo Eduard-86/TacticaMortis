@@ -19,22 +19,24 @@ struct FPlayerLobbyInfo
     FPlayerLobbyInfo()
     {}
 
-    UPROPERTY()
+    // Мб убери потом BlueprintReadWrite, но мб для UI нужно будет оставить 
+
+    UPROPERTY(BlueprintReadWrite)
     FString PlayerUniqueId = "NONE";
 
-    UPROPERTY()
+    UPROPERTY(BlueprintReadWrite)
     FString PlayerName = "NewClient";
 
-    UPROPERTY()
+    UPROPERTY(BlueprintReadWrite)
     int32 TeamIndex = -1;           
 
-    UPROPERTY()
+    UPROPERTY(BlueprintReadWrite)
     bool bIsReady = false;          
 
-    UPROPERTY()
+    UPROPERTY(BlueprintReadWrite)
     FName PlayerCharacterId;
 
-    UPROPERTY()
+    UPROPERTY(BlueprintReadWrite)
     TArray<FName> AssignedCharacterIdsFromHost;  
 
 private:

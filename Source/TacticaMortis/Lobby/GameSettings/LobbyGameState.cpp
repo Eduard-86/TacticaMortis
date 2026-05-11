@@ -26,6 +26,8 @@ void ALobbyGameState::AddNewPlayer(const APlayerController* PlayerController)
 	PlayerLobbyInfos.Last().PlayerName = PlayerController->PlayerState->GetPlayerName();
 
 	MARK_PROPERTY_DIRTY_FROM_NAME(ALobbyGameState, PlayerLobbyInfos, this);
+
+	OnPlayerInfoChanged.Broadcast();
 }
 
 void ALobbyGameState::UpdatePlayerName(const APlayerController* PC, FString PlayerName)
@@ -43,6 +45,8 @@ void ALobbyGameState::UpdatePlayerName(const APlayerController* PC, FString Play
 	PlayerLobbyInfo->PlayerName = PlayerName;
 
 	MARK_PROPERTY_DIRTY_FROM_NAME(ALobbyGameState, PlayerLobbyInfos, this);
+
+	//OnPlayerInfoChanged.Broadcast();
 }
 
 void ALobbyGameState::UpdatePlayerTeamIndex(const APlayerController* PC, int32 TeamIndex)

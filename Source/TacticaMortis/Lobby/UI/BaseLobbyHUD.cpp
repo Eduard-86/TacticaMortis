@@ -31,6 +31,10 @@ void ABaseLobbyHUD::BeginPlay()
 
 void ABaseLobbyHUD::UpdateUI_Implementation()
 {
+	FString Name = GetOwner()->GetName();
+
+	UE_LOG(LogTemp, Warning, TEXT("Geting update lobby info !"));
+	
 
 }
 

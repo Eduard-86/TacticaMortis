@@ -18,6 +18,8 @@ void ALobbyGameMode::PostLogin(APlayerController* NewPlayer)
 	}
 	else
 	{
+		//ALobbyGameState* GSPtr = GetGameState<ALobbyGameState>();
+
 		FTimerHandle TimeHandler;
 		GetWorldTimerManager().SetTimer(TimeHandler, [this, NewPlayer]()
 			{
