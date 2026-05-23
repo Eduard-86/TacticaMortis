@@ -47,6 +47,11 @@ class TACTICAMORTIS_API ALobbyGameState : public AGameState
 {
 	GENERATED_BODY()
 
+protected:
+
+    FPlayerLobbyInfo* FindPlayerInfo(const APlayerController* PC);
+	void NotifyDataChanged();
+
 public:
 
     ALobbyGameState();

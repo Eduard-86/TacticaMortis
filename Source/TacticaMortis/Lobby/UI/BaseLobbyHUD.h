@@ -28,8 +28,16 @@ public:
 	
 public:
 
-	UPROPERTY(BlueprintReadOnly)
-	TObjectPtr<ALobbyGameState> LobbyGameState;
+	UFUNCTION(BlueprintCallable)
+	void UpdateWidgetPlayerName(const FString& NewPlayerName);
+	UFUNCTION(BlueprintCallable)
+	void UpdateWidgetPlayerTeamIndex(int32 NewTeamIndex);
+	UFUNCTION(BlueprintCallable)
+	void UpdateWidgetPlayerReadyFlag(bool NewReadyFlag);
+	UFUNCTION(BlueprintCallable)
+	void UpdateWidgetPlayerSelectCharacter(FName NewCharacterId);
+
+public:
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UUserWidget> MainWidgetClass;

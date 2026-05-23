@@ -3,6 +3,8 @@
 #include "BaseLobbyHUD.h"
 
 #include "Blueprint/UserWidget.h"
+
+#include "Lobby/CharacterSettings/LobbyPlayerController.h"
 #include "Lobby/GameSettings/LobbyGameState.h"
 
 
@@ -10,15 +12,11 @@ void ABaseLobbyHUD::BeginPlay()
 {
 	Super::BeginPlay();
 
-	ALobbyGameState* LGSptr = Cast<ALobbyGameState>(
-		GetWorld()->GetGameState()
-	);
-
-	if (LGSptr)
+	if (ALobbyGameState* LGSptr = Cast<ALobbyGameState>(
+		GetWorld()->GetGameState())
+		)
 	{
-		LobbyGameState = LGSptr;
-		
-		LobbyGameState->OnPlayerInfoChanged.AddUObject(this, &ABaseLobbyHUD::UpdateUI);
+		LGSptr->OnPlayerInfoChanged.AddUObject(this, &ABaseLobbyHUD::UpdateUI);
 
 		MainWidget = CreateWidget<UUserWidget>(GetOwningPlayerController(), MainWidgetClass);
 		MainWidget->AddToViewport();
@@ -29,12 +27,35 @@ void ABaseLobbyHUD::BeginPlay()
 		ensure(false);
 }
 
+void ABaseLobbyHUD::UpdateWidgetPlayerName(const FString& NewPlayerName)
+{
+	if (ALobbyPlayerController* LPC = Cast<ALobbyPlayerController>(GetOwningPlayerController()))
+		LPC->Server_UpdateName(NewPlayerName);
+}
+
+void ABaseLobbyHUD::UpdateWidgetPlayerTeamIndex(int32 NewTeamIndex)
+{
+	if (ALobbyPlayerController* LPC = Cast<ALobbyPlayerController>(GetOwningPlayerController()))
+		LPC->Server_UpdateTeamIndex(NewTeamIndex);
+}
+
+void ABaseLobbyHUD::UpdateWidgetPlayerReadyFlag(bool NewReadyFlag)
+{
+	if (ALobbyPlayerController* LPC = Cast<ALobbyPlayerController>(GetOwningPlayerController()))
+		LPC->Server_UpdateReadyFlag(NewReadyFlag);
+}
+
+void ABaseLobbyHUD::UpdateWidgetPlayerSelectCharacter(FName NewCharacterId)
+{
+	if (ALobbyPlayerController* LPC = Cast<ALobbyPlayerController>(GetOwningPlayerController()))
+		LPC->Server_UpdateSelectCharacter(NewCharacterId);
+}
+
 void ABaseLobbyHUD::UpdateUI_Implementation()
 {
 	FString Name = GetOwner()->GetName();
 
 	UE_LOG(LogTemp, Warning, TEXT("Geting update lobby info !"));
-	
 
 }
 

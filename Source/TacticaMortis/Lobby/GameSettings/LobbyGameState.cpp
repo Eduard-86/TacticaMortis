@@ -6,10 +6,30 @@
 #include "Net/UnrealNetwork.h"
 #include "Net/Core/PushModel/PushModel.h"
 
-
 ALobbyGameState::ALobbyGameState()
 {
 	bReplicates = true;
+}
+
+FPlayerLobbyInfo* ALobbyGameState::FindPlayerInfo(const APlayerController* PC)
+{
+	if (!PC || !PC->PlayerState) return nullptr;
+
+	FString TargetId = PC->PlayerState->GetUniqueId().ToString();
+
+	return PlayerLobbyInfos.FindByPredicate(
+		[&TargetId](const FPlayerLobbyInfo& Info)->bool
+		{
+			return Info.PlayerUniqueId == TargetId;
+		}
+	);
+}
+
+void ALobbyGameState::NotifyDataChanged()
+{
+	OnPlayerInfoChanged.Broadcast();
+
+	MARK_PROPERTY_DIRTY_FROM_NAME(ALobbyGameState, PlayerLobbyInfos, this);
 }
 
 void ALobbyGameState::AddNewPlayer(const APlayerController* PlayerController)
@@ -25,58 +45,73 @@ void ALobbyGameState::AddNewPlayer(const APlayerController* PlayerController)
 
 	PlayerLobbyInfos.Last().PlayerName = PlayerController->PlayerState->GetPlayerName();
 
-	MARK_PROPERTY_DIRTY_FROM_NAME(ALobbyGameState, PlayerLobbyInfos, this);
-
-	OnPlayerInfoChanged.Broadcast();
+	NotifyDataChanged();
 }
 
 void ALobbyGameState::UpdatePlayerName(const APlayerController* PC, FString PlayerName)
 {
 	if (!HasAuthority()) return;
-	if (!PC || !PC->PlayerState) return;
 
-	FString TargetId = PC->PlayerState->GetUniqueId().ToString();
-
-	FPlayerLobbyInfo* PlayerLobbyInfo = PlayerLobbyInfos.FindByPredicate(
-		[&TargetId](const FPlayerLobbyInfo& Info)->bool
-			{return Info.PlayerUniqueId == TargetId; }
-	);
-
-	PlayerLobbyInfo->PlayerName = PlayerName;
-
-	MARK_PROPERTY_DIRTY_FROM_NAME(ALobbyGameState, PlayerLobbyInfos, this);
-
-	//OnPlayerInfoChanged.Broadcast();
+	if (FPlayerLobbyInfo* Info = FindPlayerInfo(PC))
+	{
+		Info->PlayerName = PlayerName;
+		NotifyDataChanged();
+	}
 }
 
 void ALobbyGameState::UpdatePlayerTeamIndex(const APlayerController* PC, int32 TeamIndex)
 {
 	if (!HasAuthority()) return;
-	if (!PC || !PC->PlayerState) return;
+
+	if (FPlayerLobbyInfo* Info = FindPlayerInfo(PC))
+	{
+		Info->TeamIndex = TeamIndex;
+		NotifyDataChanged();
+	}
 }
 
 void ALobbyGameState::UpdatePlayerReadyFlag(const APlayerController* PC, bool ReadyFlag)
 {
 	if (!HasAuthority()) return;
-	if (!PC || !PC->PlayerState) return;
+
+	if (FPlayerLobbyInfo* Info = FindPlayerInfo(PC))
+	{
+		Info->bIsReady = ReadyFlag;
+		NotifyDataChanged();
+	}
 }
 
 void ALobbyGameState::UpdatePlayerSelectCharacter(const APlayerController* PC, FName CharacterId)
 {
 	if (!HasAuthority()) return;
-	if (!PC || !PC->PlayerState) return;
+
+	if (FPlayerLobbyInfo* Info = FindPlayerInfo(PC))
+	{
+		Info->PlayerCharacterId = CharacterId;
+		NotifyDataChanged();
+	}
 }
 
 void ALobbyGameState::UpdateHostAddCharacterFromPlayer(const APlayerController* PC, FName CharacterId)
 {
 	if (!HasAuthority()) return;
-	if (!PC || !PC->PlayerState) return;
+
+	if (FPlayerLobbyInfo* Info = FindPlayerInfo(PC))
+	{
+		Info->AssignedCharacterIdsFromHost.Add(CharacterId);
+		NotifyDataChanged();
+	}
 }
 
 void ALobbyGameState::UpdateHostRemoveCharacterFromPlayer(const APlayerController* PC, FName CharacterId)
 {
 	if (!HasAuthority()) return;
-	if (!PC || !PC->PlayerState) return;
+
+	if (FPlayerLobbyInfo* Info = FindPlayerInfo(PC))
+	{
+		Info->AssignedCharacterIdsFromHost.Remove(CharacterId);
+		NotifyDataChanged();
+	}
 }
 
 

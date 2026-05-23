@@ -6,12 +6,28 @@
 #include "GameFramework/PlayerController.h"
 #include "LobbyPlayerController.generated.h"
 
-/**
- * 
- */
+class ALobbyGameState;
+
 UCLASS()
 class TACTICAMORTIS_API ALobbyPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 	
+protected:
+	ALobbyGameState* CheckSafeLobbyGameState();
+
+public: 
+
+	UFUNCTION(Server, Reliable, BlueprintCallable)
+	void Server_UpdateName(const FString& PlayerName);
+	UFUNCTION(Server, Reliable, BlueprintCallable)
+	void Server_UpdateTeamIndex(int32 TeamIndex);
+	UFUNCTION(Server, Reliable, BlueprintCallable)
+	void Server_UpdateReadyFlag(bool ReadyFlag);
+	UFUNCTION(Server, Reliable, BlueprintCallable)
+	void Server_UpdateSelectCharacter(FName CharacterId);
+	
+
+	UPROPERTY(BlueprintReadOnly)
+	TObjectPtr<ALobbyGameState> LobbyGameState;
 };
