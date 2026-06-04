@@ -3,6 +3,8 @@
 
 #include "Lobby/GameSettings/LobbyGameMode.h"
 #include "LobbyGameState.h"
+#include "Lobby/UI/ClientLobbyHUD.h"
+#include "Lobby/UI/HostLobbyHUD.h"
 
 void ALobbyGameMode::PostLogin(APlayerController* NewPlayer)
 {
@@ -31,6 +33,17 @@ void ALobbyGameMode::PostLogin(APlayerController* NewPlayer)
 				}
 
 			}, 0.5f, false);
+	}
+
+	if (NewPlayer->IsLocalPlayerController())
+	{
+		if (HostHUD.Get())
+			NewPlayer->ClientSetHUD(HostHUD);
+	}
+	else
+	{
+		if (ClientHUD.Get())
+			NewPlayer->ClientSetHUD(ClientHUD);
 	}
 
 }

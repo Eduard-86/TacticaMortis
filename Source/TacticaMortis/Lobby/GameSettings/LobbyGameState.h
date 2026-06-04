@@ -47,10 +47,18 @@ class TACTICAMORTIS_API ALobbyGameState : public AGameState
 {
 	GENERATED_BODY()
 
+public:
+
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    int32 FindPlayerInfoIndex(const APlayerController* PC);
+
+
 protected:
 
     FPlayerLobbyInfo* FindPlayerInfo(const APlayerController* PC);
+    
 	void NotifyDataChanged();
+
 
 public:
 

@@ -16,6 +16,12 @@ ALobbyGameState* ALobbyPlayerController::CheckSafeLobbyGameState()
 	return LobbyGameState;
 }
 
+ALobbyPlayerController::ALobbyPlayerController()
+{
+	bShowMouseCursor = true;
+	DefaultMouseCursor = EMouseCursor::Default;
+}
+
 void ALobbyPlayerController::Server_UpdateName_Implementation(const FString& PlayerName)
 {
 	if (!HasAuthority()) return;

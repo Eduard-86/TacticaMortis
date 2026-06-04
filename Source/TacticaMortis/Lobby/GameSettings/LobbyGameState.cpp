@@ -11,6 +11,21 @@ ALobbyGameState::ALobbyGameState()
 	bReplicates = true;
 }
 
+int32 ALobbyGameState::FindPlayerInfoIndex(const APlayerController* PC)
+{
+	if (!PC) return -1;
+	if (!PC->PlayerState) return -1;
+
+	for (int i = 0; i <= PlayerLobbyInfos.Num(); i++)
+	{
+		if (PlayerLobbyInfos[i].PlayerUniqueId == PC->PlayerState->GetUniqueId().ToString())
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
 FPlayerLobbyInfo* ALobbyGameState::FindPlayerInfo(const APlayerController* PC)
 {
 	if (!PC || !PC->PlayerState) return nullptr;

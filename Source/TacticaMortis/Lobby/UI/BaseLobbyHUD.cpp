@@ -10,7 +10,7 @@
 
 void ABaseLobbyHUD::BeginPlay()
 {
-	Super::BeginPlay();
+	//Super::BeginPlay(); странное поведение, вызываеться логика пузырёвого наследника 
 
 	if (ALobbyGameState* LGSptr = Cast<ALobbyGameState>(
 		GetWorld()->GetGameState())
@@ -25,6 +25,8 @@ void ABaseLobbyHUD::BeginPlay()
 	}
 	else
 		ensure(false);
+
+	Super::BeginPlay();
 }
 
 void ABaseLobbyHUD::UpdateWidgetPlayerName(const FString& NewPlayerName)
