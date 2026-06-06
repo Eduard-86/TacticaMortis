@@ -3,8 +3,58 @@
 
 #include "Lobby/GameSettings/LobbyGameMode.h"
 #include "LobbyGameState.h"
+#include "Kismet/GameplayStatics.h"
 #include "Lobby/UI/ClientLobbyHUD.h"
 #include "Lobby/UI/HostLobbyHUD.h"
+
+APlayerController* ALobbyGameMode::SpawnPlayerController(ENetRole InRemoteRole, const FString& Options)
+{
+	//bool bIsHost = UGameplayStatics::HasOption(Options, TEXT("IsHost"));
+
+	bool bIsHost = (GetNetMode() == NM_ListenServer);
+
+	TSubclassOf<APlayerController> PCClassToSpawn = nullptr;
+
+	if (bIsHost)
+	{
+		PCClassToSpawn = HostPlayerControllerClass;
+		UE_LOG(LogTemp, Log, TEXT("Spawning Host Player Controller"));
+	}
+	else
+	{
+		PCClassToSpawn = ClientPlayerControllerClass;
+		UE_LOG(LogTemp, Log, TEXT("Spawning Client Player Controller"));
+	}
+
+	if (!PCClassToSpawn)
+	{
+		PCClassToSpawn = PlayerControllerClass;
+	}
+
+
+	FActorSpawnParameters SpawnInfo;
+	SpawnInfo.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	SpawnInfo.ObjectFlags |= RF_Transient;
+	SpawnInfo.Instigator = GetInstigator();
+
+	APlayerController* NewPC = GetWorld()->SpawnActor<APlayerController>(PCClassToSpawn, SpawnInfo);
+
+
+	if (NewPC)
+	{
+		if (InRemoteRole == ROLE_SimulatedProxy)
+		{
+			NewPC->SetAsLocalPlayerController();
+		}
+
+		NewPC->SetReplicates(true);
+	}
+
+	return NewPC;
+
+	//return Super::SpawnPlayerController(InRemoteRole, Options);
+}
+
 
 void ALobbyGameMode::PostLogin(APlayerController* NewPlayer)
 {

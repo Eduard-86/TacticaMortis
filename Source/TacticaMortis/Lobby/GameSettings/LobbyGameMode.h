@@ -20,13 +20,22 @@ class TACTICAMORTIS_API ALobbyGameMode : public AGameMode
 	
 public: 
 
-	UPROPERTY(Blueprintable, EditAnywhere)
-	TSubclassOf<AHostLobbyHUD> HostBaseHUD;
+	UPROPERTY(EditDefaultsOnly, Category = "LobbySetting")
+	TSubclassOf<AHostLobbyHUD> HostHUD;
 
-	UPROPERTY(Blueprintable, EditAnywhere)
-	TSubclassOf<AClientLobbyHUD> ClientBaseHUD;
+	UPROPERTY(EditDefaultsOnly, Category = "LobbySetting")
+	TSubclassOf<AClientLobbyHUD> ClientHUD;
+
+
+	UPROPERTY(EditDefaultsOnly, Category = "LobbySetting")
+	TSubclassOf<AController> ClientPlayerControllerClass;
+
+	UPROPERTY(EditDefaultsOnly, Category = "LobbySetting")
+	TSubclassOf<AController> HostPlayerControllerClass;
 
 public:
+
+	virtual APlayerController* SpawnPlayerController(ENetRole InRemoteRole, const FString& Options) override;
 
 	virtual void PostLogin(APlayerController* NewPlayer) override;
 

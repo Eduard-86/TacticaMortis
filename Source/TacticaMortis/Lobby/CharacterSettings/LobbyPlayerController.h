@@ -16,6 +16,8 @@ class TACTICAMORTIS_API ALobbyPlayerController : public APlayerController
 protected:
 	ALobbyGameState* CheckSafeLobbyGameState();
 
+	ALobbyPlayerController();
+
 public: 
 
 	UFUNCTION(Server, Reliable, BlueprintCallable)

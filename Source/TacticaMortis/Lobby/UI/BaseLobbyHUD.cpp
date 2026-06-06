@@ -18,10 +18,13 @@ void ABaseLobbyHUD::BeginPlay()
 	{
 		LGSptr->OnPlayerInfoChanged.AddUObject(this, &ABaseLobbyHUD::UpdateUI);
 
-		MainWidget = CreateWidget<UUserWidget>(GetOwningPlayerController(), MainWidgetClass);
-		MainWidget->AddToViewport();
+		if (MainWidgetClass.Get())
+		{
+			MainWidget = CreateWidget<UUserWidget>(GetOwningPlayerController(), MainWidgetClass);
+			MainWidget->AddToViewport();
 
-		UpdateUI();
+			UpdateUI();
+		}
 	}
 	else
 		ensure(false);
