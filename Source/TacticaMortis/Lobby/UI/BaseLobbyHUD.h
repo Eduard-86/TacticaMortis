@@ -25,17 +25,6 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void UpdateUI();
 
-	
-public:
-
-	UFUNCTION(BlueprintCallable)
-	void UpdateWidgetPlayerName(const FString& NewPlayerName);
-	UFUNCTION(BlueprintCallable)
-	void UpdateWidgetPlayerTeamIndex(int32 NewTeamIndex);
-	UFUNCTION(BlueprintCallable)
-	void UpdateWidgetPlayerReadyFlag(bool NewReadyFlag);
-	UFUNCTION(BlueprintCallable)
-	void UpdateWidgetPlayerSelectCharacter(FName NewCharacterId);
 
 public:
 

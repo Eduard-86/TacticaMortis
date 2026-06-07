@@ -32,30 +32,6 @@ void ABaseLobbyHUD::BeginPlay()
 	Super::BeginPlay();
 }
 
-void ABaseLobbyHUD::UpdateWidgetPlayerName(const FString& NewPlayerName)
-{
-	if (ALobbyPlayerController* LPC = Cast<ALobbyPlayerController>(GetOwningPlayerController()))
-		LPC->Server_UpdateName(NewPlayerName);
-}
-
-void ABaseLobbyHUD::UpdateWidgetPlayerTeamIndex(int32 NewTeamIndex)
-{
-	if (ALobbyPlayerController* LPC = Cast<ALobbyPlayerController>(GetOwningPlayerController()))
-		LPC->Server_UpdateTeamIndex(NewTeamIndex);
-}
-
-void ABaseLobbyHUD::UpdateWidgetPlayerReadyFlag(bool NewReadyFlag)
-{
-	if (ALobbyPlayerController* LPC = Cast<ALobbyPlayerController>(GetOwningPlayerController()))
-		LPC->Server_UpdateReadyFlag(NewReadyFlag);
-}
-
-void ABaseLobbyHUD::UpdateWidgetPlayerSelectCharacter(FName NewCharacterId)
-{
-	if (ALobbyPlayerController* LPC = Cast<ALobbyPlayerController>(GetOwningPlayerController()))
-		LPC->Server_UpdateSelectCharacter(NewCharacterId);
-}
-
 void ABaseLobbyHUD::UpdateUI_Implementation()
 {
 	FString Name = GetOwner()->GetName();

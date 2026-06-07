@@ -4,14 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "BaseLobbyHUD.h"
-#include "GameFramework/HUD.h"
 
 #include "HostLobbyHUD.generated.h"
-
-/**
- *
- */
-
 
 
 UCLASS()
@@ -21,10 +15,13 @@ class TACTICAMORTIS_API AHostLobbyHUD : public ABaseLobbyHUD
 
 public:
 
-	//UFUNCTION(BlueprintCallable)
-	//void CreateBaseWidget(bool isHost);
-
-	//UPROPERTY()
-	//TSubclassOf<UUserWidget> ClientMainWidgetWidget;
+	UFUNCTION(BlueprintCallable)
+	void UpdateWidgetPlayerNameByIndex(int32 ClientIndex, const FString& NewPlayerName);
+	UFUNCTION(BlueprintCallable)
+	void UpdateWidgetPlayerTeamIndexByIndex(int32 ClientIndex, int32 NewTeamIndex);
+	UFUNCTION(BlueprintCallable)
+	void UpdateWidgetPlayerReadyFlagByIndex(int32 ClientIndex, bool NewReadyFlag);
+	UFUNCTION(BlueprintCallable)
+	void UpdateWidgetPlayerSelectCharacterByIndex(int32 ClientIndex, FName NewCharacterId);
 
 };
