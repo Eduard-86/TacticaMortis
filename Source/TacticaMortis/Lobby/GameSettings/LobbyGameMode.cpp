@@ -11,19 +11,22 @@ APlayerController* ALobbyGameMode::SpawnPlayerController(ENetRole InRemoteRole, 
 {
 	//bool bIsHost = UGameplayStatics::HasOption(Options, TEXT("IsHost"));
 
-	bool bIsHost = (GetNetMode() == NM_ListenServer);
-
 	TSubclassOf<APlayerController> PCClassToSpawn = nullptr;
 
-	if (bIsHost)
+	if (InRemoteRole == ROLE_SimulatedProxy)
 	{
 		PCClassToSpawn = HostPlayerControllerClass;
 		UE_LOG(LogTemp, Log, TEXT("Spawning Host Player Controller"));
 	}
-	else
+	else if (InRemoteRole == ROLE_AutonomousProxy)
 	{
 		PCClassToSpawn = ClientPlayerControllerClass;
 		UE_LOG(LogTemp, Log, TEXT("Spawning Client Player Controller"));
+	}
+	else
+	{
+		PCClassToSpawn = PlayerControllerClass;
+		UE_LOG(LogTemp, Warning, TEXT("Spawning fallback Player Controller with role %d"), (int32)InRemoteRole);
 	}
 
 	if (!PCClassToSpawn)
