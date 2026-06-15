@@ -27,7 +27,7 @@ public:
 	UFUNCTION(Server, Reliable, BlueprintCallable)
 	void Server_UpdateReadyFlag(bool ReadyFlag);
 	UFUNCTION(Server, Reliable, BlueprintCallable)
-	void Server_UpdateSelectCharacter(FName CharacterId);
+	void Server_UpdateSelectCharacter(FName CharacterRowName);
 	
 
 	UPROPERTY(BlueprintReadOnly)

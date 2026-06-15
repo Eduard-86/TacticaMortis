@@ -65,7 +65,7 @@ struct FCharacterAttributes : public FTableRowBase
     int32 BonusWounds = 0;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    int32 Speed = 30;
+    int32 Speed = 3;
 
     //UPROPERTY(EditAnywhere, BlueprintReadWrite)
     //int32 Resistance = 30;
@@ -191,8 +191,9 @@ struct FCharacterData : public FTableRowBase
 {
     GENERATED_BODY()
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    FName CharacterId = "Warrior_Male_0";
+    // Логику данного проперти будет выполнять RowName которй лежит в FTableRowBase
+    //UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    //FName CharacterId = "Warrior_Male_0";
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FString CharacterName = "Warrior";

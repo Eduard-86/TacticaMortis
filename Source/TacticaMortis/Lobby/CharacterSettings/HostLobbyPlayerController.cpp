@@ -79,7 +79,9 @@ void AHostLobbyPlayerController::UpdateReadyFlagByIndex(int PlayerIndex, bool Re
 		LobbyGameState->UpdatePlayerReadyFlag(TargetPC, ReadyFlag);
 }
 
-void AHostLobbyPlayerController::UpdateSelectCharacterByIndex(int PlayerIndex, FName CharacterId)
+
+
+void AHostLobbyPlayerController::UpdateAddCharacterByIndex(int PlayerIndex, FName CharacterId)
 {
 	if (!HasAuthority()) return;
 	if (!CheckSafeLobbyGameState()) return;
@@ -88,4 +90,21 @@ void AHostLobbyPlayerController::UpdateSelectCharacterByIndex(int PlayerIndex, F
 
 	if (TargetPC != nullptr)
 		LobbyGameState->UpdatePlayerSelectCharacter(TargetPC, CharacterId);
+}
+
+void AHostLobbyPlayerController::UpdateRemoveCharacterByIndex(int PlayerIndex, FName CharacterRowName)
+{
+}
+
+
+void AHostLobbyPlayerController::UpdateHostAddCharacter(FName NewCharacterRowName)
+{
+}
+
+void AHostLobbyPlayerController::UpdateHostRemoveCharacter(FName NewCharacterRowName)
+{
+}
+
+void AHostLobbyPlayerController::UpdateHostChangeCharacterTeamIndex(FName NewCharacterRowName, int32 NewTeamIndex)
+{
 }

@@ -96,36 +96,69 @@ void ALobbyGameState::UpdatePlayerReadyFlag(const APlayerController* PC, bool Re
 	}
 }
 
-void ALobbyGameState::UpdatePlayerSelectCharacter(const APlayerController* PC, FName CharacterId)
+void ALobbyGameState::UpdatePlayerSelectCharacter(const APlayerController* PC, FName CharacterRowName)
 {
 	if (!HasAuthority()) return;
 
 	if (FPlayerLobbyInfo* Info = FindPlayerInfo(PC))
 	{
-		Info->PlayerCharacterId = CharacterId;
+		Info->PlayerCharacterRowName = CharacterRowName;
 		NotifyDataChanged();
 	}
 }
 
-void ALobbyGameState::UpdateHostAddCharacterFromPlayer(const APlayerController* PC, FName CharacterId)
+void ALobbyGameState::UpdateHostAddCharacterFromPlayer(const APlayerController* PC, FName CharacterRowName)
 {
 	if (!HasAuthority()) return;
 
 	if (FPlayerLobbyInfo* Info = FindPlayerInfo(PC))
 	{
-		Info->AssignedCharacterIdsFromHost.Add(CharacterId);
+		Info->AssignedCharacterRowNamesFromHost.Add(FCharLobbyInfo(CharacterRowName.ToString()));
 		NotifyDataChanged();
 	}
 }
 
-void ALobbyGameState::UpdateHostRemoveCharacterFromPlayer(const APlayerController* PC, FName CharacterId)
+void ALobbyGameState::UpdateHostRemoveCharacterFromPlayer(const APlayerController* PC, FName CharacterRowName)
 {
 	if (!HasAuthority()) return;
 
 	if (FPlayerLobbyInfo* Info = FindPlayerInfo(PC))
 	{
-		Info->AssignedCharacterIdsFromHost.Remove(CharacterId);
+		Info->AssignedCharacterRowNamesFromHost.Remove(FCharLobbyInfo(CharacterRowName.ToString()));
 		NotifyDataChanged();
+	}
+}
+
+void ALobbyGameState::UpdateAddCharacterFromHost(FName CharacterRowName)
+{
+	if (!HasAuthority()) return;
+
+	if (FPlayerLobbyInfo* Info = &PlayerLobbyInfos[0])
+	{
+		Info->AssignedCharacterRowNamesFromHost.Add(FCharLobbyInfo(CharacterRowName.ToString()));
+		NotifyDataChanged();
+	}
+}
+
+void ALobbyGameState::UpdateRemoveCharacterFromHost(FName CharacterRowName)
+{
+	if (!HasAuthority()) return;
+
+	if (FPlayerLobbyInfo* Info = &PlayerLobbyInfos[0])
+	{
+		Info->AssignedCharacterRowNamesFromHost.Remove(FCharLobbyInfo(CharacterRowName.ToString()));
+		NotifyDataChanged();
+	}
+}
+
+void ALobbyGameState::UpdateChangeCharacterTeamIndexFromHost(FName CharacterRowName, int32 NewTeamIndex)
+{
+	if (!HasAuthority()) return;
+
+	if (FPlayerLobbyInfo* Info = &PlayerLobbyInfos[0])
+	{
+		//Info->AssignedCharacterRowNamesFromHost.Find(FCharLobbyInfo(CharacterRowName.ToString()));
+		//Info->AssignedCharacterRowNamesFromHost.FindByPredicate()
 	}
 }
 

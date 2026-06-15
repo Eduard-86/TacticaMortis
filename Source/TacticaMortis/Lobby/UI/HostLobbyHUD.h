@@ -21,7 +21,17 @@ public:
 	void UpdateWidgetPlayerTeamIndexByIndex(int32 ClientIndex, int32 NewTeamIndex);
 	UFUNCTION(BlueprintCallable)
 	void UpdateWidgetPlayerReadyFlagByIndex(int32 ClientIndex, bool NewReadyFlag);
+
 	UFUNCTION(BlueprintCallable)
-	void UpdateWidgetPlayerSelectCharacterByIndex(int32 ClientIndex, FName NewCharacterId);
+	void UpdateWidgetPlayerAddCharacterByIndex(int32 ClientIndex, FName CharacterRowName);
+	UFUNCTION(BlueprintCallable)
+	void UpdateWidgetPlayerRemoveCharacterByIndex(int32 ClientIndex, FName CharacterRowName);
+
+	UFUNCTION(BlueprintCallable)
+	void UpdateWidgetHostAddCharacter(FName CharacterRowName);
+	UFUNCTION(BlueprintCallable)
+	void UpdateWidgetHostRemoveCharacter(FName CharacterRowName);
+	UFUNCTION(BlueprintCallable)
+	void UpdateWidgetHostChangeTeamIndexCharacter(FName CharacterRowName, int32 NewTeamIndex);
 
 };

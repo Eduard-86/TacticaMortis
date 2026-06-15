@@ -28,8 +28,19 @@ public:
 	void UpdateTeamIndexByIndex(int PlayerIndex, int32 TeamIndex);
 	UFUNCTION(BlueprintCallable)
 	void UpdateReadyFlagByIndex(int PlayerIndex, bool ReadyFlag);
+
 	UFUNCTION(BlueprintCallable)
-	void UpdateSelectCharacterByIndex(int PlayerIndex, FName CharacterId);
+	void UpdateAddCharacterByIndex(int PlayerIndex, FName CharacterRowName);
+	UFUNCTION(BlueprintCallable)
+	void UpdateRemoveCharacterByIndex(int PlayerIndex, FName CharacterRowName);
+
+	UFUNCTION(BlueprintCallable)
+	void UpdateHostAddCharacter(FName NewCharacterRowName);
+	UFUNCTION(BlueprintCallable)
+	void UpdateHostRemoveCharacter(FName NewCharacterRowName);
+	UFUNCTION(BlueprintCallable)
+	void UpdateHostChangeCharacterTeamIndex(FName NewCharacterRowName, int32 NewTeamIndex);
+
 
 	UPROPERTY(BlueprintReadOnly)
 	TObjectPtr<ALobbyGameState> LobbyGameState;

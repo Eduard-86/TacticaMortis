@@ -46,10 +46,10 @@ void ALobbyPlayerController::Server_UpdateReadyFlag_Implementation(bool ReadyFla
 	LobbyGameState->UpdatePlayerReadyFlag(this, ReadyFlag);
 }
 
-void ALobbyPlayerController::Server_UpdateSelectCharacter_Implementation(FName CharacterId)
+void ALobbyPlayerController::Server_UpdateSelectCharacter_Implementation(FName CharacterRowName)
 {
 	if (!HasAuthority()) return;
 	if (!CheckSafeLobbyGameState()) return;
 
-	LobbyGameState->UpdatePlayerSelectCharacter(this, CharacterId);
+	LobbyGameState->UpdatePlayerSelectCharacter(this, CharacterRowName);
 }

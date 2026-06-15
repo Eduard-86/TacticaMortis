@@ -9,6 +9,23 @@
 DECLARE_MULTICAST_DELEGATE(FOnPlayerListChanged);
 
 USTRUCT(BlueprintType)
+struct FCharLobbyInfo
+{
+    GENERATED_BODY()
+    FCharLobbyInfo(FString CharRowName = "NONE", int32 CharTeamIndex = -1) :
+        RowName(CharRowName), TeamIndex(CharTeamIndex){}
+
+    FCharLobbyInfo()
+	{}
+
+    UPROPERTY(BlueprintReadWrite)
+    FString RowName = "NONE";
+
+	UPROPERTY(BlueprintReadWrite)
+	int32 TeamIndex = -1;
+};
+
+USTRUCT(BlueprintType)
 struct FPlayerLobbyInfo  
 {
     GENERATED_BODY()
@@ -34,10 +51,10 @@ struct FPlayerLobbyInfo
     bool bIsReady = false;          
 
     UPROPERTY(BlueprintReadWrite)
-    FName PlayerCharacterId;
+    FName PlayerCharacterRowName;
 
     UPROPERTY(BlueprintReadWrite)
-    TArray<FName> AssignedCharacterIdsFromHost;  
+    TArray<FCharLobbyInfo> AssignedCharacterRowNamesFromHost;
 
 private:
 };
@@ -74,10 +91,15 @@ public:
 	void UpdatePlayerName(const APlayerController* PC, FString PlayerName);
     void UpdatePlayerTeamIndex(const APlayerController* PC, int32 TeamIndex);
     void UpdatePlayerReadyFlag(const APlayerController* PC, bool ReadyFlag);
-    void UpdatePlayerSelectCharacter(const APlayerController* PC, FName CharacterId);
+    void UpdatePlayerSelectCharacter(const APlayerController* PC, FName CharacterRowName);
     
-	void UpdateHostAddCharacterFromPlayer(const APlayerController* PC, FName CharacterId);
-    void UpdateHostRemoveCharacterFromPlayer(const APlayerController* PC, FName CharacterId);
+	void UpdateHostAddCharacterFromPlayer(const APlayerController* PC, FName CharacterRowName);
+    void UpdateHostRemoveCharacterFromPlayer(const APlayerController* PC, FName CharacterRowName);
+
+
+    void UpdateAddCharacterFromHost(FName CharacterRowName);
+    void UpdateRemoveCharacterFromHost(FName CharacterRowName);
+    void UpdateChangeCharacterTeamIndexFromHost(FName CharacterRowName, int32 NewTeamIndex);
 
 public:
 

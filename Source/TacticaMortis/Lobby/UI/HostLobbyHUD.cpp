@@ -23,8 +23,32 @@ void AHostLobbyHUD::UpdateWidgetPlayerReadyFlagByIndex(int32 ClientIndex, bool N
 		LPC->UpdateReadyFlagByIndex(ClientIndex, NewReadyFlag);
 }
 
-void AHostLobbyHUD::UpdateWidgetPlayerSelectCharacterByIndex(int32 ClientIndex, FName NewCharacterId)
+void AHostLobbyHUD::UpdateWidgetPlayerAddCharacterByIndex(int32 ClientIndex, FName CharacterRowName)
 {
 	if (AHostLobbyPlayerController* LPC = Cast<AHostLobbyPlayerController>(GetOwningPlayerController()))
-		LPC->UpdateSelectCharacterByIndex(ClientIndex, NewCharacterId);
+		LPC->UpdateAddCharacterByIndex(ClientIndex, CharacterRowName);
+}
+
+void AHostLobbyHUD::UpdateWidgetPlayerRemoveCharacterByIndex(int32 ClientIndex, FName CharacterRowName)
+{
+	if (AHostLobbyPlayerController* LPC = Cast<AHostLobbyPlayerController>(GetOwningPlayerController()))
+		LPC->UpdateRemoveCharacterByIndex(ClientIndex, CharacterRowName);
+}
+
+void AHostLobbyHUD::UpdateWidgetHostAddCharacter(FName CharacterRowName)
+{
+	if (AHostLobbyPlayerController* LPC = Cast<AHostLobbyPlayerController>(GetOwningPlayerController()))
+		LPC->UpdateHostAddCharacter(CharacterRowName);
+}
+
+void AHostLobbyHUD::UpdateWidgetHostRemoveCharacter(FName CharacterRowName)
+{
+	if (AHostLobbyPlayerController* LPC = Cast<AHostLobbyPlayerController>(GetOwningPlayerController()))
+		LPC->UpdateHostRemoveCharacter(CharacterRowName);
+}
+
+void AHostLobbyHUD::UpdateWidgetHostChangeTeamIndexCharacter(FName CharacterRowName, int32 NewTeamIndex)
+{
+	if (AHostLobbyPlayerController* LPC = Cast<AHostLobbyPlayerController>(GetOwningPlayerController()))
+		LPC->UpdateHostChangeCharacterTeamIndex(CharacterRowName, NewTeamIndex);
 }
