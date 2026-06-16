@@ -154,11 +154,17 @@ void ALobbyGameState::UpdateRemoveCharacterFromHost(FName CharacterRowName)
 void ALobbyGameState::UpdateChangeCharacterTeamIndexFromHost(FName CharacterRowName, int32 NewTeamIndex)
 {
 	if (!HasAuthority()) return;
-
+	
 	if (FPlayerLobbyInfo* Info = &PlayerLobbyInfos[0])
 	{
-		//Info->AssignedCharacterRowNamesFromHost.Find(FCharLobbyInfo(CharacterRowName.ToString()));
-		//Info->AssignedCharacterRowNamesFromHost.FindByPredicate()
+		auto CharInfo = Info->AssignedCharacterRowNamesFromHost.FindByPredicate(
+			[&CharacterRowName](const FCharLobbyInfo& Info)-> bool
+			{
+				return Info.RowName == CharacterRowName.ToString();
+			});
+
+		if (CharInfo)
+			CharInfo->TeamIndex = NewTeamIndex;
 	}
 }
 

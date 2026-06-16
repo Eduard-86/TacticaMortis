@@ -12,17 +12,21 @@ USTRUCT(BlueprintType)
 struct FCharLobbyInfo
 {
     GENERATED_BODY()
+
     FCharLobbyInfo(FString CharRowName = "NONE", int32 CharTeamIndex = -1) :
         RowName(CharRowName), TeamIndex(CharTeamIndex){}
 
-    FCharLobbyInfo()
-	{}
 
     UPROPERTY(BlueprintReadWrite)
     FString RowName = "NONE";
 
 	UPROPERTY(BlueprintReadWrite)
 	int32 TeamIndex = -1;
+
+    bool operator==(const FCharLobbyInfo& Other) const
+    {
+        return RowName == Other.RowName;
+    }
 };
 
 USTRUCT(BlueprintType)

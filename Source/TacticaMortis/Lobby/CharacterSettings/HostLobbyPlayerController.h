@@ -35,11 +35,11 @@ public:
 	void UpdateRemoveCharacterByIndex(int PlayerIndex, FName CharacterRowName);
 
 	UFUNCTION(BlueprintCallable)
-	void UpdateHostAddCharacter(FName NewCharacterRowName);
+	void UpdateHostAddCharacter(FName CharacterRowName);
 	UFUNCTION(BlueprintCallable)
-	void UpdateHostRemoveCharacter(FName NewCharacterRowName);
+	void UpdateHostRemoveCharacter(FName CharacterRowName);
 	UFUNCTION(BlueprintCallable)
-	void UpdateHostChangeCharacterTeamIndex(FName NewCharacterRowName, int32 NewTeamIndex);
+	void UpdateHostChangeCharacterTeamIndex(FName CharacterRowName, int32 NewTeamIndex);
 
 
 	UPROPERTY(BlueprintReadOnly)
