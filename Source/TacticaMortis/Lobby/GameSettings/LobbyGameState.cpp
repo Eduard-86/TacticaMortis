@@ -165,6 +165,8 @@ void ALobbyGameState::UpdateChangeCharacterTeamIndexFromHost(FName CharacterRowN
 
 		if (CharInfo)
 			CharInfo->TeamIndex = NewTeamIndex;
+
+		NotifyDataChanged();
 	}
 }
 
