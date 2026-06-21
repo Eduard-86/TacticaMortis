@@ -13,20 +13,27 @@ struct FCharLobbyInfo
 {
     GENERATED_BODY()
 
-    FCharLobbyInfo(FString CharRowName = "NONE", int32 CharTeamIndex = -1) :
-        RowName(CharRowName), TeamIndex(CharTeamIndex){}
+    FCharLobbyInfo(FString CharRowName = "NONE", int32 CharTeamIndex = -1)
+        : RowName(CharRowName),
+        InstanceId(FGuid::NewGuid().ToString()),
+        TeamIndex(CharTeamIndex) {
+    }
 
+
+    UPROPERTY(BlueprintReadOnly)
+    FString InstanceId;
 
     UPROPERTY(BlueprintReadWrite)
-    FString RowName = "NONE";
+    FName RowName = "NONE";
 
 	UPROPERTY(BlueprintReadWrite)
 	int32 TeamIndex = -1;
 
     bool operator==(const FCharLobbyInfo& Other) const
     {
-        return RowName == Other.RowName;
+        return InstanceId == Other.InstanceId;
     }
+
 };
 
 USTRUCT(BlueprintType)
@@ -98,12 +105,12 @@ public:
     void UpdatePlayerSelectCharacter(const APlayerController* PC, FName CharacterRowName);
     
 	void UpdateHostAddCharacterFromPlayer(const APlayerController* PC, FName CharacterRowName);
-    void UpdateHostRemoveCharacterFromPlayer(const APlayerController* PC, FName CharacterRowName);
+    void UpdateHostRemoveCharacterFromPlayer(const APlayerController* PC, FString CharacterInstanceId);
 
 
     void UpdateAddCharacterFromHost(FName CharacterRowName);
-    void UpdateRemoveCharacterFromHost(FName CharacterRowName);
-    void UpdateChangeCharacterTeamIndexFromHost(FName CharacterRowName, int32 NewTeamIndex);
+    void UpdateRemoveCharacterFromHost(FString CharacterInstanceId);
+    void UpdateChangeCharacterTeamIndexFromHost(FString CharacterInstanceId, int32 NewTeamIndex);
 
 public:
 

@@ -25,13 +25,13 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void UpdateWidgetPlayerAddCharacterByIndex(int32 ClientIndex, FName CharacterRowName);
 	UFUNCTION(BlueprintCallable)
-	void UpdateWidgetPlayerRemoveCharacterByIndex(int32 ClientIndex, FName CharacterRowName);
+	void UpdateWidgetPlayerRemoveCharacterByIndex(int32 ClientIndex, FString CharacterInstanceId);
 
 	UFUNCTION(BlueprintCallable)
 	void UpdateWidgetHostAddCharacter(FName CharacterRowName);
 	UFUNCTION(BlueprintCallable)
-	void UpdateWidgetHostRemoveCharacter(FName CharacterRowName);
+	void UpdateWidgetHostRemoveCharacter(FString CharacterInstanceId);
 	UFUNCTION(BlueprintCallable)
-	void UpdateWidgetHostChangeTeamIndexCharacter(FName CharacterRowName, int32 NewTeamIndex);
+	void UpdateWidgetHostChangeTeamIndexCharacter(FString CharacterInstanceId, int32 NewTeamIndex);
 
 };

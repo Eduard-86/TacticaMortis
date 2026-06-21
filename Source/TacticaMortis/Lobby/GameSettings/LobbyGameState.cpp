@@ -118,13 +118,18 @@ void ALobbyGameState::UpdateHostAddCharacterFromPlayer(const APlayerController* 
 	}
 }
 
-void ALobbyGameState::UpdateHostRemoveCharacterFromPlayer(const APlayerController* PC, FName CharacterRowName)
+void ALobbyGameState::UpdateHostRemoveCharacterFromPlayer(const APlayerController* PC, FString CharacterInstanceId)
 {
 	if (!HasAuthority()) return;
 
 	if (FPlayerLobbyInfo* Info = FindPlayerInfo(PC))
 	{
-		Info->AssignedCharacterRowNamesFromHost.Remove(FCharLobbyInfo(CharacterRowName.ToString()));
+		Info->AssignedCharacterRowNamesFromHost.RemoveAll(
+			[&CharacterInstanceId](const FCharLobbyInfo& Char)
+			{
+				return Char.InstanceId == CharacterInstanceId;
+			});
+
 		NotifyDataChanged();
 	}
 }
@@ -140,27 +145,32 @@ void ALobbyGameState::UpdateAddCharacterFromHost(FName CharacterRowName)
 	}
 }
 
-void ALobbyGameState::UpdateRemoveCharacterFromHost(FName CharacterRowName)
+void ALobbyGameState::UpdateRemoveCharacterFromHost(FString CharacterInstanceId)
 {
 	if (!HasAuthority()) return;
 
 	if (FPlayerLobbyInfo* Info = &PlayerLobbyInfos[0])
 	{
-		Info->AssignedCharacterRowNamesFromHost.Remove(FCharLobbyInfo(CharacterRowName.ToString()));
+		Info->AssignedCharacterRowNamesFromHost.RemoveAll(
+			[&CharacterInstanceId](const FCharLobbyInfo& Char)
+			{
+				return Char.InstanceId == CharacterInstanceId;
+			});
+
 		NotifyDataChanged();
 	}
 }
 
-void ALobbyGameState::UpdateChangeCharacterTeamIndexFromHost(FName CharacterRowName, int32 NewTeamIndex)
+void ALobbyGameState::UpdateChangeCharacterTeamIndexFromHost(FString CharacterInstanceId, int32 NewTeamIndex)
 {
 	if (!HasAuthority()) return;
 	
 	if (FPlayerLobbyInfo* Info = &PlayerLobbyInfos[0])
 	{
 		auto CharInfo = Info->AssignedCharacterRowNamesFromHost.FindByPredicate(
-			[&CharacterRowName](const FCharLobbyInfo& Info)-> bool
+			[&CharacterInstanceId](const FCharLobbyInfo& Info)-> bool
 			{
-				return Info.RowName == CharacterRowName.ToString();
+				return Info.InstanceId == CharacterInstanceId;
 			});
 
 		if (CharInfo)

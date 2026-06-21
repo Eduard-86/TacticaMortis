@@ -92,7 +92,7 @@ void AHostLobbyPlayerController::UpdateAddCharacterByIndex(int PlayerIndex, FNam
 		LobbyGameState->UpdateHostAddCharacterFromPlayer(TargetPC, CharacterId);
 }
 
-void AHostLobbyPlayerController::UpdateRemoveCharacterByIndex(int PlayerIndex, FName CharacterRowName)
+void AHostLobbyPlayerController::UpdateRemoveCharacterByIndex(int PlayerIndex, FString CharacterInstanceId)
 {
 	if (!HasAuthority()) return;
 	if (!CheckSafeLobbyGameState()) return;
@@ -100,7 +100,7 @@ void AHostLobbyPlayerController::UpdateRemoveCharacterByIndex(int PlayerIndex, F
 	APlayerController* TargetPC = FindClientPCbyIndex(PlayerIndex);
 
 	if (TargetPC != nullptr)
-		LobbyGameState->UpdateHostRemoveCharacterFromPlayer(TargetPC, CharacterRowName);
+		LobbyGameState->UpdateHostRemoveCharacterFromPlayer(TargetPC, CharacterInstanceId);
 }
 
 
@@ -112,18 +112,18 @@ void AHostLobbyPlayerController::UpdateHostAddCharacter(FName CharacterRowName)
 	LobbyGameState->UpdateAddCharacterFromHost(CharacterRowName);
 }
 
-void AHostLobbyPlayerController::UpdateHostRemoveCharacter(FName CharacterRowName)
+void AHostLobbyPlayerController::UpdateHostRemoveCharacter(FString CharacterInstanceId)
 {
 	if (!HasAuthority()) return;
 	if (!CheckSafeLobbyGameState()) return;
 
-	LobbyGameState->UpdateRemoveCharacterFromHost(CharacterRowName);
+	LobbyGameState->UpdateRemoveCharacterFromHost(CharacterInstanceId);
 }
 
-void AHostLobbyPlayerController::UpdateHostChangeCharacterTeamIndex(FName CharacterRowName, int32 NewTeamIndex)
+void AHostLobbyPlayerController::UpdateHostChangeCharacterTeamIndex(FString CharacterInstanceId, int32 NewTeamIndex)
 {
 	if (!HasAuthority()) return;
 	if (!CheckSafeLobbyGameState()) return;
 
-	LobbyGameState->UpdateChangeCharacterTeamIndexFromHost(CharacterRowName, NewTeamIndex);
+	LobbyGameState->UpdateChangeCharacterTeamIndexFromHost(CharacterInstanceId, NewTeamIndex);
 }
