@@ -19,6 +19,9 @@ class TACTICAMORTIS_API ALobbyGameMode : public AGameMode
 	GENERATED_BODY()
 	
 public: 
+	//, meta = (RowType = "/Script/TacticaMortis.MapInfo")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "LobbySetting")
+	TObjectPtr<UDataTable> MapDataTable;
 
 	UPROPERTY(EditDefaultsOnly, Category = "LobbySetting")
 	TSubclassOf<AHostLobbyHUD> HostHUD;
@@ -40,4 +43,7 @@ public:
 	virtual void PostLogin(APlayerController* NewPlayer) override;
 
 	virtual void HandleStartingNewPlayer_Implementation(APlayerController* NewPlayer) override;
+
+	UFUNCTION(BlueprintCallable)
+	void StartBattle(FName SelectedMapRowName);
 };

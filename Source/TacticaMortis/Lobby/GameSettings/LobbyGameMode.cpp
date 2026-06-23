@@ -4,6 +4,7 @@
 #include "Lobby/GameSettings/LobbyGameMode.h"
 #include "LobbyGameState.h"
 #include "Kismet/GameplayStatics.h"
+#include "Lobby/MapSelectorInfo.h"
 #include "Lobby/UI/ClientLobbyHUD.h"
 #include "Lobby/UI/HostLobbyHUD.h"
 
@@ -108,4 +109,17 @@ void ALobbyGameMode::HandleStartingNewPlayer_Implementation(APlayerController* N
 	
 	//->AddNewPlayer(NewPlayer);
 
+}
+
+void ALobbyGameMode::StartBattle(FName SelectedMapRowName)
+{
+	if (!HasAuthority()) return;
+	if (!MapDataTable) return;
+
+	FMapInfo* MapInfo = MapDataTable->FindRow<FMapInfo>(SelectedMapRowName, TEXT(""));
+	
+	if (!MapInfo) return;
+	
+	FString MapPath = MapInfo->Map.ToSoftObjectPath().GetLongPackageName();
+	GetWorld()->ServerTravel(MapPath + TEXT("?listen"));
 }
