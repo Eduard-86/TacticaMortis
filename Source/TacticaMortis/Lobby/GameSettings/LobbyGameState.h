@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameState.h"
+
 #include "LobbyGameState.generated.h"
 
 DECLARE_MULTICAST_DELEGATE(FOnPlayerListChanged);
@@ -115,6 +116,9 @@ public:
 public:
 
     FOnPlayerListChanged OnPlayerInfoChanged;
+
+    UPROPERTY(BlueprintReadWrite, Replicated)
+    FName SelectMap = "None";
 
 protected:
 

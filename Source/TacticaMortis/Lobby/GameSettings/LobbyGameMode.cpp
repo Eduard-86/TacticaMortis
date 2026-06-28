@@ -3,7 +3,9 @@
 
 #include "Lobby/GameSettings/LobbyGameMode.h"
 #include "LobbyGameState.h"
+#include "Core/TacticaMortisGameInstance.h"
 #include "Kismet/GameplayStatics.h"
+#include "Lobby/LobbyDataManager.h"
 #include "Lobby/MapSelectorInfo.h"
 #include "Lobby/UI/ClientLobbyHUD.h"
 #include "Lobby/UI/HostLobbyHUD.h"
@@ -119,6 +121,20 @@ void ALobbyGameMode::StartBattle(FName SelectedMapRowName)
 	FMapInfo* MapInfo = MapDataTable->FindRow<FMapInfo>(SelectedMapRowName, TEXT(""));
 	
 	if (!MapInfo) return;
+
+
+	if (UTacticaMortisGameInstance* GameInstance = Cast<UTacticaMortisGameInstance>(GetGameInstance()))
+	{
+		TObjectPtr<ULobbyDataManager> LobbyDataManager = NewObject<ULobbyDataManager>(GameInstance);
+
+		ALobbyGameState* LobbyGameState = GetGameState<ALobbyGameState>();
+
+		LobbyDataManager->PlayerLobbyInfos = LobbyGameState->PlayerLobbyInfos;
+
+		LobbyDataManager->AddToRoot();
+
+		GameInstance->SavePlayersData(LobbyDataManager);
+	}
 	
 	FString MapPath = MapInfo->Map.ToSoftObjectPath().GetLongPackageName();
 	GetWorld()->ServerTravel(MapPath + TEXT("?listen"));

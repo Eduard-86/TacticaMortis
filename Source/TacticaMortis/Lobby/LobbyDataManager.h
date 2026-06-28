@@ -6,9 +6,8 @@
 #include "UObject/Object.h"
 #include "LobbyDataManager.generated.h"
 
-/**
- * 
- */
+struct FPlayerLobbyInfo;
+
 UCLASS()
 class TACTICAMORTIS_API ULobbyDataManager : public UObject
 {
@@ -16,6 +15,6 @@ class TACTICAMORTIS_API ULobbyDataManager : public UObject
 
 public:
 
-	
+	TArray<FPlayerLobbyInfo> PlayerLobbyInfos;
 	
 };

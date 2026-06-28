@@ -3,7 +3,7 @@
 
 #include "ClientLobbyHUD.h"
 
-#include "Lobby/CharacterSettings/LobbyPlayerController.h"
+#include "Lobby/PlayerSettings/LobbyPlayerController.h"
 
 
 void AClientLobbyHUD::UpdateWidgetPlayerName(const FString& NewPlayerName)

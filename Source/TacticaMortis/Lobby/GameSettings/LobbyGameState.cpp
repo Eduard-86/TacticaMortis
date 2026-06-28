@@ -193,4 +193,6 @@ void ALobbyGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME_CONDITION_NOTIFY(ALobbyGameState, PlayerLobbyInfos, COND_None, REPNOTIFY_Always);
+
+	DOREPLIFETIME(ALobbyGameState, SelectMap);
 }

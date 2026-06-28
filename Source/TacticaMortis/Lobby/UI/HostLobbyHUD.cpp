@@ -3,7 +3,7 @@
 #include "HostLobbyHUD.h"
 
 #include "ClientLobbyHUD.h"
-#include "Lobby/CharacterSettings/HostLobbyPlayerController.h"
+#include "Lobby/PlayerSettings/HostLobbyPlayerController.h"
 
 void AHostLobbyHUD::UpdateWidgetPlayerNameByIndex(int32 ClientIndex, const FString& NewPlayerName)
 {

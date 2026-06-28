@@ -4,7 +4,7 @@
 
 #include "Blueprint/UserWidget.h"
 
-#include "Lobby/CharacterSettings/LobbyPlayerController.h"
+#include "Lobby/PlayerSettings/LobbyPlayerController.h"
 #include "Lobby/GameSettings/LobbyGameState.h"
 
 
